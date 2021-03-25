@@ -7,6 +7,8 @@ import (
 	"github.com/yurihq/appsearch/internal/pkg/flatten"
 )
 
+// Normalize nested map into flat map as defined in schema
+// Keys are stripped of trailing underscores, lowercased and flattened with underscore (_) separator
 func Normalize(raw m, schema SchemaDefinition) (normalizedFlatMap m, err error) {
 	flatMap, err := flatten.Flatten(raw, flatten.UnderscoreStyle)
 	if err != nil {
@@ -61,13 +63,13 @@ func Normalize(raw m, schema SchemaDefinition) (normalizedFlatMap m, err error) 
 	return normalizedFlatMap, nil
 }
 
-var defaultValues = map[string]interface{}{
+var defaultValues = map[SchemaType]interface{}{
 	"text":        "",
 	"date":        time.Time{},
 	"number":      0,
 	"geolocation": "0.0,0.0",
 }
 
-func nullifyType(schemaType string) interface{} {
+func nullifyType(schemaType SchemaType) interface{} {
 	return defaultValues[schemaType]
 }

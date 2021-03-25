@@ -14,8 +14,9 @@ type client struct {
 	*resty.Client
 }
 
-func Open(host, key string) (*client, error) {
-	u, err := url.Parse(host)
+// Open APIClient with endpoint and key
+func Open(endpoint, key string) (*client, error) {
+	u, err := url.Parse(endpoint)
 	if err != nil {
 		return nil, err
 	}
@@ -29,6 +30,7 @@ func Open(host, key string) (*client, error) {
 	}, nil
 }
 
+// List all available engines
 func (c *client) ListAllEngines(ctx context.Context) (engines []EngineDescription, err error) {
 	page := 0
 	totalPages := 1
@@ -48,12 +50,14 @@ func (c *client) ListAllEngines(ctx context.Context) (engines []EngineDescriptio
 	return engines, err
 }
 
+// List engines with pagination
 func (c *client) ListEngines(ctx context.Context, page Page) (data EngineResponse, err error) {
 	err = c.Call(ctx, page, &data, http.MethodGet, "engines")
 
 	return data, err
 }
 
+// List a schema by engineName
 func (c *client) ListSchema(ctx context.Context, engineName string) (data SchemaDefinition, err error) {
 	err = c.Call(ctx, nil, &data, http.MethodGet, "engines/%s/schema", engineName)
 
@@ -64,25 +68,37 @@ func (c *client) ListSchema(ctx context.Context, engineName string) (data Schema
 	return data, err
 }
 
-func (c *client) Patch(ctx context.Context, engineName string, documents interface{}) (res []UpdateResponse, err error) {
+// Patch a list of documents. Every document must contain "id".
+// Every document is patched separately.
+// Documents without ID will be rejected.
+// Non-existing documents will be rejected.
+func (c *client) PatchDocuments(ctx context.Context, engineName string, documents interface{}) (res []UpdateResponse, err error) {
 	err = c.Call(ctx, documents, &res, http.MethodPatch, "engines/%s/documents", engineName)
 
 	return res, err
 }
 
-func (c *client) Update(ctx context.Context, engineName string, documents interface{}) (res []UpdateResponse, err error) {
+// Update (replace) a list of documents
+// Every document is created (or replaced) separately.
+// Documents without ID will have auto-generated ID's.
+// Non-existing documents will be automatically created.
+func (c *client) UpdateDocuments(ctx context.Context, engineName string, documents interface{}) (res []UpdateResponse, err error) {
 	err = c.Call(ctx, documents, &res, http.MethodPost, "engines/%s/documents", engineName)
 
 	return res, err
 }
 
-func (c *client) Remove(ctx context.Context, engineName string, documents interface{}) (res []UpdateResponse, err error) {
+// Remove a list of documents specified as string ID's or documents with "id" field
+// Every document is deleted separately.
+func (c *client) RemoveDocuments(ctx context.Context, engineName string, documents interface{}) (res []DeleteResponse, err error) {
 	err = c.Call(ctx, documents, &res, http.MethodDelete, "engines/%s/documents", engineName)
 
 	return res, err
 }
 
-func (c *client) Search(ctx context.Context, engineName string, query interface{}, into interface{}) (err error) {
+// Search documents by query
+// TODO: query struct. Refer to https://www.elastic.co/guide/en/app-search/current/search.html#search-api-request-body
+func (c *client) SearchDocuments(ctx context.Context, engineName string, query interface{}, into interface{}) (err error) {
 	err = c.Call(ctx, query, into, http.MethodPost, "engines/%s/search", engineName)
 
 	return err

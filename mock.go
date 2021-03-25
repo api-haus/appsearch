@@ -11,6 +11,7 @@ type mock struct {
 	MockSearch func(ctx context.Context, engineName string, query interface{}, into interface{}) (err error)
 }
 
+// Create mock APIClient
 func Mock(Engines []EngineDescription, Schemas map[string]SchemaDefinition) *mock {
 	return &mock{Engines: Engines, Schemas: Schemas}
 }
@@ -29,6 +30,22 @@ func (m *mock) ListSchema(ctx context.Context, engineName string) (data SchemaDe
 	return m.Schemas[engineName], nil
 }
 
-func (m *mock) Search(ctx context.Context, engineName string, query interface{}, into interface{}) (err error) {
+func (m *mock) SearchDocument(ctx context.Context, engineName string, query interface{}, into interface{}) (err error) {
 	return m.MockSearch(ctx, engineName, query, into)
+}
+
+func (m *mock) PatchDocuments(ctx context.Context, engineName string, documents interface{}) (res []UpdateResponse, err error) {
+	panic("implement me")
+}
+
+func (m *mock) UpdateDocuments(ctx context.Context, engineName string, documents interface{}) (res []UpdateResponse, err error) {
+	panic("implement me")
+}
+
+func (m *mock) RemoveDocuments(ctx context.Context, engineName string, documents interface{}) (res []UpdateResponse, err error) {
+	panic("implement me")
+}
+
+func (m *mock) SearchDocuments(ctx context.Context, engineName string, query interface{}, into interface{}) (err error) {
+	panic("implement me")
 }

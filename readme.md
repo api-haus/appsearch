@@ -3,6 +3,8 @@ appsearch
 
 AppSearch API Client for GoLang (incomplete).
 
+[Documentation](https://pkg.go.dev/github.com/yurihq/appsearch)
+
 ## Features
 
 Current set of features. PR's are welcome 😎

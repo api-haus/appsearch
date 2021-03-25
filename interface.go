@@ -16,13 +16,29 @@ type ListSchema interface {
 	ListSchema(ctx context.Context, engineName string) (data SchemaDefinition, err error)
 }
 
-type Search interface {
-	Search(ctx context.Context, engineName string, query interface{}, into interface{}) (err error)
+type SearchDocuments interface {
+	SearchDocuments(ctx context.Context, engineName string, query interface{}, into interface{}) (err error)
 }
 
+type PatchDocuments interface {
+	PatchDocuments(ctx context.Context, engineName string, documents interface{}) (res []UpdateResponse, err error)
+}
+
+type UpdateDocuments interface {
+	UpdateDocuments(ctx context.Context, engineName string, documents interface{}) (res []UpdateResponse, err error)
+}
+
+type RemoveDocuments interface {
+	RemoveDocuments(ctx context.Context, engineName string, documents interface{}) (res []UpdateResponse, err error)
+}
+
+// APIClient interface
 type APIClient interface {
-	Search
 	ListSchema
 	ListEngines
 	ListAllEngines
+	PatchDocuments
+	UpdateDocuments
+	RemoveDocuments
+	SearchDocuments
 }
