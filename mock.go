@@ -19,6 +19,12 @@ func (m *mock) ListAllEngines(ctx context.Context) (data []EngineDescription, er
 	return m.Engines, nil
 }
 
+func (m *mock) ListEngines(ctx context.Context, page Page) (data EngineResponse, err error) {
+	return EngineResponse{
+		Results: m.Engines,
+	}, nil
+}
+
 func (m *mock) ListSchema(ctx context.Context, engineName string) (data SchemaDefinition, err error) {
 	return m.Schemas[engineName], nil
 }
