@@ -29,7 +29,7 @@ type UpdateDocuments interface {
 }
 
 type RemoveDocuments interface {
-	RemoveDocuments(ctx context.Context, engineName string, documents interface{}) (res []UpdateResponse, err error)
+	RemoveDocuments(ctx context.Context, engineName string, documents interface{}) (res []DeleteResponse, err error)
 }
 
 // APIClient interface

@@ -42,7 +42,7 @@ func (m *mock) UpdateDocuments(ctx context.Context, engineName string, documents
 	panic("implement me")
 }
 
-func (m *mock) RemoveDocuments(ctx context.Context, engineName string, documents interface{}) (res []UpdateResponse, err error) {
+func (m *mock) RemoveDocuments(ctx context.Context, engineName string, documents interface{}) (res []DeleteResponse, err error) {
 	panic("implement me")
 }
 

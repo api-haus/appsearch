@@ -35,4 +35,11 @@ func TestClient(t *testing.T) {
 
 		fmt.Printf("%v", schema)
 	})
+
+	t.Run("Must implement APIClient", func(t *testing.T) {
+		var c APIClient
+		c = &mock{}
+		c = &client{}
+		_ = c
+	})
 }
