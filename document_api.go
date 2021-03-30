@@ -34,8 +34,8 @@ func (c *client) RemoveDocuments(ctx context.Context, engineName string, documen
 }
 
 // Search documents by query
-// TODO: query struct. Refer to https://www.elastic.co/guide/en/app-search/current/search.html#search-api-request-body
-func (c *client) SearchDocuments(ctx context.Context, engineName string, query SearchQuery) (response SearchResponse, err error) {
+// Refer to https://www.elastic.co/guide/en/app-search/current/search.html#search-api-request-body
+func (c *client) SearchDocuments(ctx context.Context, engineName string, query Query) (response SearchResponse, err error) {
 	err = c.Call(ctx, query, &response, http.MethodPost, "engines/%s/search", engineName)
 
 	return response, err

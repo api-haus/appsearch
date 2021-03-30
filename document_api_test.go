@@ -87,7 +87,7 @@ func TestDocumentAPI(t *testing.T) {
 			{ID: "national-parks", Errors: []string{}},
 		}, res)
 
-		response, err := c.SearchDocuments(ctx, engine.Name, SearchQuery{Query: "amazing"})
+		response, err := c.SearchDocuments(ctx, engine.Name, Query{Query: "amazing"})
 		require.NoError(t, err)
 
 		require.Len(t, response.Results, 1)

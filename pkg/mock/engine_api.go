@@ -34,7 +34,7 @@ func (m *mock) CreateEngine(ctx context.Context, request appsearch.CreateEngineR
 	m.Engines[request.Name] = appsearch.EngineDescription{
 		Name:          request.Name,
 		Type:          "engine",
-		Language:      request.Language,
+		Language:      &request.Language,
 		DocumentCount: 0,
 	}
 	return m.ListEngine(ctx, request.Name)

@@ -21,7 +21,7 @@ func (m *mock) RemoveDocuments(ctx context.Context, engineName string, documents
 	return
 }
 
-func (m *mock) SearchDocuments(ctx context.Context, engineName string, query appsearch.SearchQuery) (response appsearch.SearchResponse, err error) {
+func (m *mock) SearchDocuments(ctx context.Context, engineName string, query appsearch.Query) (response appsearch.SearchResponse, err error) {
 	m.impl(interfacesOf(ctx, engineName, query), interfacesOf(&response, &err))
 	return
 }

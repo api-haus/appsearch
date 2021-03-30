@@ -45,8 +45,7 @@ func TestEngineAPI(t *testing.T) {
 			t.Parallel()
 			engineName := fmt.Sprintf("test-%d", rand.Uint64())
 			engine, err := c.CreateEngine(ctx, CreateEngineRequest{
-				Name:     engineName,
-				Language: nil,
+				Name: engineName,
 			})
 			defer deleteEngine(c, engineName)
 
@@ -60,8 +59,7 @@ func TestEngineAPI(t *testing.T) {
 			defer deleteEngine(c, engine)
 
 			_, err := c.CreateEngine(ctx, CreateEngineRequest{
-				Name:     engine.Name,
-				Language: nil,
+				Name: engine.Name,
 			})
 			require.ErrorIs(t, err, ErrEngineAlreadyExists)
 		})
@@ -73,8 +71,7 @@ func TestEngineAPI(t *testing.T) {
 			t.Parallel()
 			engineName := fmt.Sprintf("test-%d", rand.Uint64())
 			err := c.EnsureEngine(ctx, CreateEngineRequest{
-				Name:     engineName,
-				Language: nil,
+				Name: engineName,
 			})
 			defer deleteEngine(c, engineName)
 			require.NoError(t, err)
@@ -90,8 +87,7 @@ func TestEngineAPI(t *testing.T) {
 				"baze": "date",
 			}
 			err := c.EnsureEngine(ctx, CreateEngineRequest{
-				Name:     engineName,
-				Language: nil,
+				Name: engineName,
 			}, schema)
 			defer deleteEngine(c, engineName)
 			require.NoError(t, err)

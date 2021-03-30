@@ -69,8 +69,8 @@ type EngineResponse struct {
 
 // Request for CreateEngine
 type CreateEngineRequest struct {
-	Name     string  `json:"name"`
-	Language *string `json:"language"`
+	Name     string `json:"name"`
+	Language string `json:"language,omitempty"`
 }
 
 // Engine description
@@ -180,7 +180,7 @@ type ResultFields = map[string]ResultField
 
 // Search query structure
 // TODO: query builder
-type SearchQuery struct {
+type Query struct {
 	// Lucene query
 	Query string `json:"query"`
 	// Pagination

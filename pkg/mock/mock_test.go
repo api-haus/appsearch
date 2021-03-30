@@ -23,12 +23,12 @@ func TestMock(t *testing.T) {
 	t.Run("Dirty implementation hacks", func(t *testing.T) {
 		mockRequest := appsearch.CreateEngineRequest{
 			Name:     "testEngine",
-			Language: nil,
+			Language: "",
 		}
 		mockResult := appsearch.EngineDescription{
 			Name:          "testEngine",
 			Type:          "engine",
-			Language:      nil,
+			Language:      &mockRequest.Language,
 			DocumentCount: 0,
 		}
 

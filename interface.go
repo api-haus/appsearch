@@ -19,7 +19,7 @@ type DocumentAPI interface {
 	// Every document is processed separately.
 	RemoveDocuments(ctx context.Context, engineName string, documentsOrIDs interface{}) (res []DeleteResponse, err error)
 	// Search documents by query
-	SearchDocuments(ctx context.Context, engineName string, query SearchQuery) (response SearchResponse, err error)
+	SearchDocuments(ctx context.Context, engineName string, query Query) (response SearchResponse, err error)
 }
 
 type EngineAPI interface {
