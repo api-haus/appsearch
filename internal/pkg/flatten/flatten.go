@@ -1,3 +1,5 @@
+// Copyright (c) 2016 Jeremy Wohl
+// Hacked together from sources obtained at https://github.com/jeremywohl/flatten
 package flatten
 
 import (
